@@ -44,5 +44,4 @@ fi
 # 编辑
 zsh  # 先切换到zsh，否则source会报错
 source ~/.zshrc  # 刷新配置
-echo "输入密码改变默认shell为zsh"
-chsh -s /bin/zsh   # 切换默认shell为zsh，需要用户输入密码
+echo 请运行 "chsh -s /bin/zsh" 切换默认shell为zsh,命令行输入zsh回车马上使用zsh。  # 切换默认shell为zsh，需要用户输入密码
