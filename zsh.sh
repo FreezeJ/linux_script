@@ -2,8 +2,8 @@
 # 配置zsh环境脚本
 
 if [[ ! -f /bin/zsh ]]; then  # 如果不存在zsh则安装zsh
-	echo "请输入sudo密码，安装zsh和git："
-	sudo yum install -y zsh git
+    echo "请输入sudo密码，安装zsh和git："
+    sudo yum install -y zsh git
 fi
 
 if [[ ! -d ~/.oh-my-zsh/ ]]; then  # 如果不存在zsh则安装zsh
