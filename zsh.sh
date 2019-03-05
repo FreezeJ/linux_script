@@ -1,6 +1,9 @@
 # coding:utf8
 # 配置zsh环境脚本
 
+
+cd ~  # 进入用户家目录
+
 if [[ ! -f /bin/zsh ]]; then  # 如果不存在zsh则安装zsh
     echo "请输入sudo密码，安装zsh和git："
     sudo yum install -y zsh git
@@ -43,5 +46,3 @@ zsh  # 先切换到zsh，否则source会报错
 source ~/.zshrc  # 刷新配置
 echo "输入密码改变默认shell为zsh"
 chsh -s /bin/zsh   # 切换默认shell为zsh，需要用户输入密码
-
-
