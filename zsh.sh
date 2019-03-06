@@ -43,6 +43,10 @@ if [ $? -ne 0 ]; then  # 安装和配置autojump
     bash -c "sed -i $PATTERN ~/.zshrc"
 fi
 
+grep "ZSH_DISABLE_COMPFIX = true" ~/.zshrc
+if [ $? -ne 0 ]; then
+    sed -i '1a\ZSH_DISABLE_COMPFIX = true' ~/.zshrc
+fi
 
 
 # 编辑
