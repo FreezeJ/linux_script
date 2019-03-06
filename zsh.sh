@@ -25,7 +25,7 @@ if [[ ! -f ~/.oh-my-zsh/themes/zeta.zsh-theme ]]; then  # 如果不存在zeta主
     fi
 fi
 
-PLUGINS="plugins=(git autojump zsh-syntax-highlighting zsh-completions)"
+PLUGINS="plugins=(git autojump zsh-syntax-highlighting zsh-completions zsh-autosuggestions)"
 grep "$PLUGINS" ~/.zshrc
 if [ $? -ne 0 ]; then  # 安装和配置autojump
     echo 安装autojump
@@ -37,15 +37,15 @@ if [ $? -ne 0 ]; then  # 安装和配置autojump
     cd ~/.oh-my-zsh/
     git clone https://github.com/FreezeJ/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     sed -i 's/^plugins=/\# plugins=/g' ~/.zshrc
-    LINE=`grep -n "# plugins=" ~/.zshrc | tail -1 | cut -d ":" -f 1`
-    PATTERN=\"$LINE"a\\$PLUGINS"\"
+    PATTERN=\"1"a\\$PLUGINS"\"
     bash -c "sed -i $PATTERN ~/.zshrc"
 fi
 
 grep "ZSH_DISABLE_COMPFIX = true" ~/.zshrc
 if [ $? -ne 0 ]; then
-    sed -i '1a\ZSH_DISABLE_COMPFIX = true' ~/.zshrc
+    sed -i '1a\ZSH_DISABLE_COMPFIX=true' ~/.zshrc
 fi
 
 
