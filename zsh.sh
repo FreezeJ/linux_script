@@ -25,8 +25,9 @@ if [[ ! -f ~/.oh-my-zsh/themes/zeta.zsh-theme ]]; then  # 如果不存在zeta主
     fi
 fi
 
-
-if [[ ! -d ~/.oh-my-zsh/autojump ]]; then  # 安装和配置autojump
+PLUGINS="plugins=(git autojump zsh-syntax-highlighting zsh-completions)"
+grep "$PLUGINS" ~/.zshrc
+if [ $? -ne 0 ]; then  # 安装和配置autojump
     echo 安装autojump
     cd ~/.oh-my-zsh/
     git clone https://github.com/FreezeJ/autojump
@@ -35,8 +36,11 @@ if [[ ! -d ~/.oh-my-zsh/autojump ]]; then  # 安装和配置autojump
 
     cd ~/.oh-my-zsh/
     git clone https://github.com/FreezeJ/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
     sed -i 's/^plugins=/\# plugins=/g' ~/.zshrc
-    sed -i '/^# plugins=/a\plugins=(git autojump zsh-syntax-highlighting)' ~/.zshrc  # 追加一行
+    LINE=`grep -n "# plugins=" ~/.zshrc | tail -1 | cut -d ":" -f 1`
+    PATTERN=\"$LINE"a\\$PLUGINS"\"
+    bash -c "sed -i $PATTERN ~/.zshrc"
 fi
 
 
