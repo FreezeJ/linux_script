@@ -33,6 +33,8 @@ if [ $? -ne 0 ]; then  # 安装和配置autojump
     git clone https://github.com/FreezeJ/autojump
     cd ~/.oh-my-zsh/autojump
     python install.py
+    cat ~/.zshrc | grep source | grep autojump.sh && echo "[[ -s /home/$USER/.autojump/etc/profile.d/autojump.sh ]] && source /home/$USER/.autojump/etc/profile.d/autojump.sh
+" > ~/.zshrc
 
     cd ~/.oh-my-zsh/
     git clone https://github.com/FreezeJ/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
