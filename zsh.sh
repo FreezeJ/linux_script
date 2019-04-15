@@ -33,17 +33,21 @@ if [ $? -ne 0 ]; then  # 安装和配置autojump
     git clone https://github.com/FreezeJ/autojump
     cd ~/.oh-my-zsh/autojump
     python install.py
-    cat ~/.zshrc | grep source | grep autojump.sh || echo "[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
-" >> ~/.zshrc
-    cat ~/.zshrc | grep autoload | grep compinit || echo "autoload -U compinit && compinit -u" >> ~/.zshrc
+    AUTOJUMP="[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+"
+    AUTOJUMP_PATTERN=\"1"a\\$AUTOJUMP"\"
+    AUTOLOAD="autoload -U compinit && compinit -u"
+    AUTOLOAD_PATTERN=\"1"a\\$AUTOLOAD"\"
+    cat ~/.zshrc | grep autoload | grep compinit || bash -c "sed -i $AUTOLOAD_PATTERN ~/.zshrc"
+    cat ~/.zshrc | grep source | grep autojump.sh || bash -c "sed -i $AUTOJUMP_PATTERN ~/.zshrc"
 
     cd ~/.oh-my-zsh/
     git clone https://github.com/FreezeJ/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    sed -i 's/^plugins=/\# plugins=/g' ~/.zshrc
-    PATTERN=\"1"a\\$PLUGINS"\"
-    bash -c "sed -i $PATTERN ~/.zshrc"
+    sed -i 's/^plugins=/\# plugins=/g' ~/.zshrc  # 注释原有的插件列表
+    PLUGINS_PATTERN=\"1"a\\$PLUGINS"\"
+    bash -c "sed -i $PLUGINS_PATTERN ~/.zshrc"
 fi
 
 grep "ZSH_DISABLE_COMPFIX = true" ~/.zshrc
@@ -54,4 +58,5 @@ fi
 
 # 编辑
 zsh -c "source ~/.zshrc"  # 刷新配置
+echo "----------安装完成----------"
 echo 请运行 "chsh -s /bin/zsh" 切换默认shell为zsh,命令行输入zsh回车马上使用zsh。  # 切换默认shell>为zsh，需要用户输入密码
