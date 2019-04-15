@@ -33,8 +33,9 @@ if [ $? -ne 0 ]; then  # 安装和配置autojump
     git clone https://github.com/FreezeJ/autojump
     cd ~/.oh-my-zsh/autojump
     python install.py
-    cat ~/.zshrc | grep source | grep autojump.sh && echo "[[ -s /home/$USER/.autojump/etc/profile.d/autojump.sh ]] && source /home/$USER/.autojump/etc/profile.d/autojump.sh
-" > ~/.zshrc
+    cat ~/.zshrc | grep source | grep autojump.sh || echo "[[ -s /home/$USER/.autojump/etc/profile.d/autojump.sh ]] && source /home/$USER/.autojump/etc/profile.d/autojump.sh
+" >> ~/.zshrc
+    cat ~/.zshrc | grep autoload | grep compinit || echo "autoload -U compinit && compinit -u" >> ~/.zshrc
 
     cd ~/.oh-my-zsh/
     git clone https://github.com/FreezeJ/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -52,6 +53,5 @@ fi
 
 
 # 编辑
-zsh  # 先切换到zsh，否则source会报错
-source ~/.zshrc  # 刷新配置
-echo 请运行 "chsh -s /bin/zsh" 切换默认shell为zsh,命令行输入zsh回车马上使用zsh。  # 切换默认shell为zsh，需要用户输入密码
+zsh -c "source ~/.zshrc"  # 刷新配置
+echo 请运行 "chsh -s /bin/zsh" 切换默认shell为zsh,命令行输入zsh回车马上使用zsh。  # 切换默认shell>为zsh，需要用户输入密码
